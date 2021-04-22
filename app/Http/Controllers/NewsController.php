@@ -6,15 +6,36 @@ namespace App\Http\Controllers;
 
 class NewsController extends Controller
 {
-    public function index(){
-        $url = route('news::catalog');
-        dd($url);
+    private $news = [
+        1 => [
+            'title' => 'news 1'
+        ],
+        2 => [
+            'title' => 'news 2'
+        ]
+    ];
+
+
+    public function index()
+    {
+        foreach ($this->news as $id => $item) {
+            $url = route('news::card', ['id' => $id]);
+            echo "<div>
+                    <a href='$url'>
+                        {$item['title']}
+                   </a>
+                  </div>";
+        }
         echo "this is main page";
         exit;
     }
 
-    public function card($id){
-        echo "this is news card {$id}";
+    public function card($id)
+    {
+        $news = $this->news[$id];
+
+        echo $news['title'];
+
         exit;
     }
 
