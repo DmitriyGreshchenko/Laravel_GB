@@ -14,20 +14,28 @@ Route::get('/', function () {
 /**
  * Новости
  */
-Route::get('/news', [NewsController::class, 'index'])
-    ->name("news::catalog");
-//Route::get('/news', '\App\Http\Controllers\NewsController@index');
-Route::get('/news/{id}', [NewsController::class, 'card'])
-    ->where('id', '[0-9]+')
-    ->name('news::card');
-Route::get('/news/category/{name}', [NewsController::class, 'category'])
-    ->where('name', '[a-z]+');
-Route::get('/news/category/{name}/news', [NewsController::class, 'categoryNews'])
-    ->where('name', '[a-z]+');
+Route::group([
+    'prefix' => 'news',
+    'as' => 'news::'
+], function() {
+
+    Route::get('/', [NewsController::class, 'index'])
+        ->name("categories");
+
+    Route::get('/card/{id}', [NewsController::class, 'card'])
+        ->where('id', '[0-9]+')
+        ->name('card');
+
+    Route::get('/{categoryId}', [NewsController::class, 'list'])
+        ->where('id', '[0-9]+')
+        ->name('list');
+});
+
 
 Route::get('/add', [AddNewsController::class, 'index']);
 Route::get('/hello', [HelloController::class, 'index']);
 Route::get('/login', [LoginController::class, 'index']);
+
 
 /** Админка новостей */
 Route::group([
