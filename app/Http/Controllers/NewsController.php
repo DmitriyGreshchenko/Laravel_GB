@@ -38,5 +38,14 @@ class NewsController extends Controller
 
         exit;
     }
+    public function category($category){
+        echo "this is category {$category}";
+        exit;
+    }
+    public function categoryNews($category){
+        echo "this is news from category {$category}";
+        exit;
+    }
 
 }
+
